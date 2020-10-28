@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  app:
+    build: docker/app/
+    volumes:
+      - ./:/srv/app/
+    env_file:
+      - ./docker/.docker.env
+    ports:
+      - "80:80"
+    working_dir: /srv/app/
+
+  database:
+    image: mysql:5.7
+    env_file:
+      - ./docker/.docker.env
+    ports:
+      - "3307:3306"
+
