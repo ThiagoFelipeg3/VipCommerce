@@ -13,28 +13,42 @@ class ProdutoRepository
         $this->produto = $produto;
     }
 
-    public function getTodosProdutos(array $dados): bool
+    public function getTodosProdutos(): array
     {
-        return $this->produto->create($dados);
+        return $this->produto->all()->toArray();
     }
 
-    public function getProduto(int $codigo_produto): Produto
+    public function getProduto(int $codigo_produto): ?array
+    {
+        $produto = $this->getId($codigo_produto);
+        if (is_null($produto)) return $produto;
+
+        return $produto->toArray();
+    }
+
+    public function criarProduto(array $dados): ?array
+    {
+        return $this->produto->create($dados)->toArray();
+    }
+
+    public function editarProduto(array $dados, int $codigo_produto): ?bool
+    {
+        $produto = $this->getId($codigo_produto);
+        if (is_null($produto)) return $produto;
+
+        return $produto->update($dados);
+    }
+
+    public function deletarProduto(int $codigo_produto): ?bool
+    {
+        $produto = $this->getId($codigo_produto);
+        if (is_null($produto)) return $produto;
+
+        return $produto->delete();
+    }
+
+    private function getId(int $codigo_produto): ?Produto
     {
         return $this->produto->find($codigo_produto);
-    }
-
-    public function criarProduto(array $dados): bool
-    {
-        return $this->produto->create($dados);
-    }
-
-    public function editarProduto(int $codigo_produto, array $dados): bool
-    {
-        return $this->produto->getProduto($codigo_produto)->update($dados);
-    }
-
-    public function deletarProduto(int $codigo_produto)
-    {
-        return $this->getProduto($codigo_produto)->delete();
     }
 }

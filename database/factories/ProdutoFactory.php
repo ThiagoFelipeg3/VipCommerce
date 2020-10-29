@@ -2,19 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\Cliente;
+use App\Models\Produto;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Faker\Provider\Color;
 use Faker\Provider\Base;
 
-
-class ClienteFactory extends Factory
+class ProdutoFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Cliente::class;
+    protected $model = Produto::class;
 
     /**
      * Define the model's default state.
@@ -24,9 +24,10 @@ class ClienteFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'cpf' => Base::randomNumber(),
+            'nome' => "produto_{$this->faker->randomNumber()}",
+            'cor' => Color::colorName(),
+            'tamanho' => Base::randomFloat(2, 0 , 10),
+            'valor' => Base::randomFloat(2, 0, 9)
         ];
     }
 }

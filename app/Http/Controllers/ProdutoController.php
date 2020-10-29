@@ -15,10 +15,10 @@ class ProdutoController extends Controller
         $this->produtoRepository = $produtoRepository;
     }
 
-    public function getTodosProdutos(array $dados)
+    public function getTodosProdutos()
     {
         return response(
-            $this->produtoRepository->getTodosProdutos($dados),
+            $this->produtoRepository->getTodosProdutos(),
             Response::HTTP_OK
         );
     }
@@ -31,18 +31,18 @@ class ProdutoController extends Controller
         );
     }
 
-    public function criarProduto(array $dados)
+    public function criarProduto(Request $dados)
     {
         return response(
-            $this->produtoRepository->criarProduto($dados),
+            $this->produtoRepository->criarProduto($dados->toArray()),
             Response::HTTP_CREATED
         );
     }
 
-    public function editarProduto(int $codigo_produto, array $dados)
+    public function editarProduto(Request $dados, int $codigo_produto)
     {
         return response(
-            $this->produtoRepository->editarProduto($codigo_produto, $dados),
+            $this->produtoRepository->editarProduto($dados->toArray(), $codigo_produto),
             Response::HTTP_OK
         );
     }
