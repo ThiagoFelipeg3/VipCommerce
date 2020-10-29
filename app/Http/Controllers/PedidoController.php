@@ -42,7 +42,7 @@ class PedidoController extends Controller
     public function editarPedido(Request $dados, int $codigo_pedido)
     {
         return response(
-            $this->pedidoRepository->editarPedido($codigo_pedido, $dados->all()),
+            $this->pedidoRepository->editarPedido($dados->all(), $codigo_pedido),
             Response::HTTP_OK
         );
     }

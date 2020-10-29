@@ -18,6 +18,9 @@ class CreatePedidoTable extends Migration
             $table->date('data_pedido')->nullable(false);
             $table->text('observacao');
 
+            $table->integer('codigo_cliente')->unsigned();
+            $table->foreign('codigo_cliente')->references('codigo_cliente')->on('cliente');
+
             $table->integer('codigo_forma_pagamento')->nullable(false)->unsigned();
             $table->foreign('codigo_forma_pagamento')->references('codigo_forma_pagamento')->on('forma_pagamento');
 

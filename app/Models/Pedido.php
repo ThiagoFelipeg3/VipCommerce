@@ -15,6 +15,20 @@ class Pedido extends Model
         'codigo_pedido',
         'data_pedido',
         'observacao',
-        'codigo_forma_pagamento'
+        'codigo_forma_pagamento',
+        'codigo_cliente'
     ];
+
+    public function produto()
+    {
+        return $this->belongsToMany(Produto::class, 'pedido_produto', 'codigo_pedido', 'codigo_produto')
+        ->withPivot([
+            "quantidade"
+        ]);
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
 }
