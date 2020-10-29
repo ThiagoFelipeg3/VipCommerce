@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Reporitory;
+namespace App\Repository;
 
 use App\Models\Cliente;
 
@@ -13,28 +13,33 @@ class ClienteRepository
         $this->cliente = $cliente;
     }
 
-    public function getTodosClientes(array $dados): bool
+    public function getTodosClientes(): array
+    {
+        return $this->cliente->all()->toArray();
+    }
+
+    public function getCliente(int $codigo_cliente): array
+    {
+        return $this->getId($codigo_cliente)->toArray();
+    }
+
+    public function criarCliente(array $dados)
     {
         return $this->cliente->create($dados);
     }
 
-    public function getCliente(int $codigo_cliente): Cliente
+    public function editarCliente(array $dados, int $codigo_cliente): bool
+    {
+        return $this->getId($codigo_cliente)->update($dados);
+    }
+
+    public function deletarCliente(int $codigo_cliente): bool
+    {
+        return $this->getId($codigo_cliente)->delete();
+    }
+
+    private function getId(int $codigo_cliente): Cliente
     {
         return $this->cliente->find($codigo_cliente);
-    }
-
-    public function criarCliente(array $dados): bool
-    {
-        return $this->cliente->create($dados);
-    }
-
-    public function editarCliente(int $codigo_cliente, array $dados): bool
-    {
-        return $this->cliente->getCliente($codigo_cliente)->update($dados);
-    }
-
-    public function deletarCliente(int $codigo_cliente)
-    {
-        return $this->getCliente($codigo_cliente)->delete();
     }
 }

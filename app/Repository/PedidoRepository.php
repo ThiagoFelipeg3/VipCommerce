@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Reporitory;
+namespace App\Repository;
 
 use App\Models\Pedido;
 
@@ -13,28 +13,33 @@ class PedidoRepository
         $this->pedido = $pedido;
     }
 
-    public function getTodosPedidos(array $dados): bool
+    public function getTodosPedidos(): array
     {
-        return $this->pedido->create($dados);
+        return $this->pedido->all()->toArray();
     }
 
-    public function getPedido(int $codigo_pedido): Pedido
+    public function getPedido(int $codigo_pedido): array
     {
-        return $this->pedido->find($codigo_pedido);
+        return $this->getId($codigo_pedido)->toArray();
     }
 
-    public function criarPedido(array $dados): bool
+    public function criarPedido(array $dados)
     {
-        return $this->pedido->create($dados);
+        return $this->pedido->create($dados)->toArray();
     }
 
     public function editarPedido(int $codigo_pedido, array $dados): bool
     {
-        return $this->pedido->getPedido($codigo_pedido)->update($dados);
+        return $this->getId($codigo_pedido)->update($dados);
     }
 
-    public function deletarPedido(int $codigo_pedido)
+    public function deletarPedido(int $codigo_pedido): bool
     {
-        return $this->getPedido($codigo_pedido)->delete();
+        return $this->getId($codigo_pedido)->delete();
+    }
+
+    private function getId(int $codigo_pedido): Pedido
+    {
+        return $this->pedido->find($codigo_pedido);
     }
 }
