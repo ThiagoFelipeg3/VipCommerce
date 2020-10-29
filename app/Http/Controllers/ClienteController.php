@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Reporitory\ClienteRepository;
+use App\Repository\ClienteRepository;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Cliente extends Controller
+class ClienteController extends Controller
 {
     public $clienteRepository;
 
@@ -15,10 +15,10 @@ class Cliente extends Controller
         $this->clienteRepository = $clienteRepository;
     }
 
-    public function getTodosClientes(array $dados)
+    public function getTodosClientes()
     {
         return response(
-            $this->clienteRepository->getTodosClientes($dados),
+            $this->clienteRepository->getTodosClientes(),
             Response::HTTP_OK
         );
     }
@@ -31,18 +31,18 @@ class Cliente extends Controller
         );
     }
 
-    public function criarCliente(array $dados)
+    public function criarCliente(Request $dados)
     {
         return response(
-            $this->clienteRepository->criarCliente($dados),
+            $this->clienteRepository->criarCliente($dados->all()),
             Response::HTTP_CREATED
         );
     }
 
-    public function editarCliente(int $codigo_cliente, array $dados)
+    public function editarCliente(Request $dados, int $codigo_cliente)
     {
         return response(
-            $this->clienteRepository->editarCliente($codigo_cliente, $dados),
+            $this->clienteRepository->editarCliente($dados->all(), $codigo_cliente),
             Response::HTTP_OK
         );
     }

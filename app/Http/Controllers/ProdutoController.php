@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Reporitory\ProdutoRepository;
+use App\Repository\ProdutoRepository;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Produto extends Controller
+class ProdutoController extends Controller
 {
     public $produtoRepository;
 

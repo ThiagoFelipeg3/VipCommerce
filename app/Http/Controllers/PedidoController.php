@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Reporitory\PedidoRepository;
+use App\Repository\PedidoRepository;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Pedido extends Controller
+class PedidoController extends Controller
 {
     public $pedidoRepository;
 
@@ -15,10 +15,10 @@ class Pedido extends Controller
         $this->pedidoRepository = $pedidoRepository;
     }
 
-    public function getTodosPedidos(array $dados)
+    public function getTodosPedidos()
     {
         return response(
-            $this->pedidoRepository->getTodosPedidos($dados),
+            $this->pedidoRepository->getTodosPedidos(),
             Response::HTTP_OK
         );
     }
@@ -31,18 +31,18 @@ class Pedido extends Controller
         );
     }
 
-    public function criarPedido(array $dados)
+    public function criarPedido(Request $dados)
     {
         return response(
-            $this->pedidoRepository->criarPedido($dados),
+            $this->pedidoRepository->criarPedido($dados->all()),
             Response::HTTP_CREATED
         );
     }
 
-    public function editarPedido(int $codigo_pedido, array $dados)
+    public function editarPedido(Request $dados, int $codigo_pedido)
     {
         return response(
-            $this->pedidoRepository->editarPedido($codigo_pedido, $dados),
+            $this->pedidoRepository->editarPedido($codigo_pedido, $dados->all()),
             Response::HTTP_OK
         );
     }
