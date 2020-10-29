@@ -10,12 +10,11 @@ class Pedido extends Model
     use HasFactory;
 
     protected $primaryKey = 'codigo_pedido';
-    private $table = 'pedido';
-    private $fillable = [
+    protected $table = 'pedido';
+    protected $fillable = [
         'codigo_pedido',
         'data_pedido',
         'observacao',
-        'forma_pagamento'
+        'codigo_forma_pagamento'
     ];
-}
 }

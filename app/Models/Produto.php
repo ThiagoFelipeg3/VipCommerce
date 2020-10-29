@@ -10,8 +10,8 @@ class Produto extends Model
     use HasFactory;
 
     protected $primaryKey = 'codigo_produto';
-    private $table = 'produto';
-    private $fillable = [
+    protected $table = 'produto';
+    protected $fillable = [
         'codigo_produto',
         'nome',
         'cor',
