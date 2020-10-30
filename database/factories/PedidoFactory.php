@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Cliente;
+use App\Models\FormaPagamento;
 use App\Models\Pedido;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use Faker\Provider\en_US\Text;
 class PedidoFactory extends Factory
 {
     /**
@@ -22,7 +24,10 @@ class PedidoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "data_pedido" => date('Y-m-d'),
+            "observacao" => app(Text::class)->realText(20),
+            "codigo_forma_pagamento" => FormaPagamento::DINHEIRO,
+            "codigo_cliente" => Cliente::all()->last()->codigo_cliente,
         ];
     }
 }

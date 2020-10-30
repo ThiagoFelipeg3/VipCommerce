@@ -19,7 +19,7 @@ class Pedido extends Model
         'codigo_cliente'
     ];
 
-    public function produto()
+    public function produtos()
     {
         return $this->belongsToMany(Produto::class, 'pedido_produto', 'codigo_pedido', 'codigo_produto')
         ->withPivot([

@@ -20,7 +20,7 @@ class PedidoRepository
 
     public function getPedido(int $codigo_pedido): array
     {
-        return $this->getId($codigo_pedido)->load(['produto'])->toArray();
+        return $this->getId($codigo_pedido)->load(['produtos'])->toArray();
     }
 
     public function criarPedido(array $dados): array
@@ -35,7 +35,7 @@ class PedidoRepository
             $ids[$pd['codigo_produto']] = ['quantidade' => $pd['quantidade']];
         }
 
-        $pedido->produto()->attach($ids);
+        $pedido->produtos()->attach($ids);
 
         return $pedido->toArray();
     }
@@ -52,7 +52,7 @@ class PedidoRepository
             $ids[$pd['codigo_produto']] = ['quantidade' => $pd['quantidade']];
         }
 
-        $pedido->produto()->sync($ids);
+        $pedido->produtos()->sync($ids);
         unset($dados['pedido_produto']);
 
         return $pedido->update($dados);
@@ -60,10 +60,13 @@ class PedidoRepository
 
     public function deletarPedido(int $codigo_pedido): bool
     {
-        return $this->getId($codigo_pedido)->delete();
+        $pedido = $this->getId($codigo_pedido);
+        $pedido->produtos()->detach();
+
+        return $pedido->delete();
     }
 
-    private function getId(int $codigo_pedido): Pedido
+    private function getId(int $codigo_pedido): ?Pedido
     {
         return $this->pedido->find($codigo_pedido);
     }

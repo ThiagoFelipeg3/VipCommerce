@@ -67,11 +67,10 @@ class ProdutoTest extends TestCase
     public function testDeletarProduto()
     {
         $produto = $this->produtos->first();
-        $this->json(
+        $response = $this->json(
             'DELETE',
             "api/produtos/$produto->codigo_produto"
         )->assertStatus(200);
-        $response = $this->get("api/produtos/$produto->codigo_produto");
-        $this->assertEquals(1, 1);
+        $this->assertEquals(1, $response->json());
     }
 }

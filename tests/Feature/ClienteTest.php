@@ -67,11 +67,10 @@ class ClienteTest extends TestCase
     public function testDeletarCliente()
     {
         $cliente = $this->clientes->first();
-        $this->json(
+        $response = $this->json(
             'DELETE',
             "api/clientes/$cliente->codigo_cliente"
         )->assertStatus(200);
-        $response = $this->get("api/clientes/$cliente->codigo_cliente");
-        $this->assertEquals(1, 1);
+        $this->assertEquals(1, $response->json());
     }
 }
