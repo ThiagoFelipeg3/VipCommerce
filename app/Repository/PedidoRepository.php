@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\Pedido;
+use App\Notifications\EnviarPedido;
 
 class PedidoRepository
 {
@@ -64,6 +65,14 @@ class PedidoRepository
         $pedido->produtos()->detach();
 
         return $pedido->delete();
+    }
+
+    public function sendmail(int $codigo_pedido)
+    {
+        $pedido = $this->getId($codigo_pedido)->load(['produtos']);
+        if (is_null($pedido)) return;
+
+        return $pedido->cliente->notify(new EnviarPedido($pedido->toArray(), $pedido->cliente->nome));
     }
 
     private function getId(int $codigo_pedido): ?Pedido

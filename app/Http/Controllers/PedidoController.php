@@ -54,4 +54,12 @@ class PedidoController extends Controller
             Response::HTTP_OK
         );
     }
+
+    public function sendmail(int $codigo_pedido)
+    {
+        return response(
+            $this->pedidoRepository->sendmail($codigo_pedido),
+            Response::HTTP_OK
+        );
+    }
 }

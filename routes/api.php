@@ -28,6 +28,7 @@ Route::prefix('pedidos')->group(function () {
     Route::get('{codigo_pedido}', 'PedidoController@getPedido')->name('retonar.pedido');
     Route::put('{codigo_pedido}', 'PedidoController@editarPedido')->name('editar.pedidos');
     Route::delete('{codigo_pedido}', 'PedidoController@deletarPedido')->name('deletar.pedidos');
+    Route::post('{codigo_pedido}/sendmail', 'PedidoController@sendmail')->name('enviar.sendmail');
 });
 
 Route::prefix('produtos')->group(function () {
