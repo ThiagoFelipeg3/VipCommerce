@@ -21,7 +21,9 @@ class PedidoRepository
 
     public function getPedido(int $codigo_pedido): array
     {
-        return $this->getId($codigo_pedido)->load(['produtos'])->toArray();
+        return $this->getId($codigo_pedido)->load(
+            ['produtos', 'formaPagamento']
+        )->toArray();
     }
 
     public function criarPedido(array $dados): array
